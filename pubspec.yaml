@@ -1,0 +1,12 @@
+name: true_core
+description:
+version: 0.0.1
+homepage:
+publish_to: none
+
+environment:
+  sdk: ">=2.15.0 <3.0.0"
+
+dependencies:
+  # DateFormat
+  intl: any
