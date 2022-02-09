@@ -8,15 +8,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  ifs:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "99ce49e346ebf0996b367f6af7fc9d8336338ee2"
-      url: "https://github.com/TrueCollaboration/ifs.dart.git"
-    source: git
-    version: "0.0.1"
   intl:
     dependency: "direct main"
     description:
@@ -31,12 +22,5 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
-  synchronized:
-    dependency: transitive
-    description:
-      name: synchronized
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
 sdks:
   dart: ">=2.15.0 <3.0.0"

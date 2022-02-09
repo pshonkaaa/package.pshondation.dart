@@ -1,11 +1,8 @@
 import 'dart:async';
 
 import 'NotifierSubscription.dart';
-import 'typedef.dart';
 
-class NotifierStorage {
-  static final Map<Type, NotifierSubscriptionConverter> converters = {};
-  
+class NotifierStorage {  
   final List<NotifierSubscription> _subscriptions = [];
   final List<StreamSubscription> _streamSubscriptions = [];
   final List<NotifierStorage> _storages = [];
@@ -14,16 +11,9 @@ class NotifierStorage {
 
   bool _disposed = false;
 
-  void add(Object value) {
+  void add(NotifierSubscription value) {
     _throwIfDisposed();
-    _subscriptions.add(value is NotifierSubscription ? value : _convert(value));
-  }
-
-  static NotifierSubscription _convert(Object value) {
-    final type = value.runtimeType;
-    if(!converters.containsKey(type))
-      throw(Exception("NotifierStorage doesnt support $type"));
-    return converters[type]!(value);
+    _subscriptions.add(value);
   }
 
   void addStorage(NotifierStorage storage) {
