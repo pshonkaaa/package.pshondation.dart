@@ -5,6 +5,7 @@ import 'typedef.dart';
 
 abstract class NotifierSubscription<T> {
   NotifierSubscription<T> addTo(NotifierStorage storage);
+  NotifierSubscription<T> execute();
   void cancel();
 }
 
@@ -30,6 +31,12 @@ class ProxyNotifierSubscription<T> extends NotifierSubscription<T> {
   @override
   NotifierSubscription<T> addTo(NotifierStorage storage) {
     storage.add(this);
+    return this;
+  }
+
+  @override
+  NotifierSubscription<T> execute() {
+    _dst.value = fromSink == null ? _src.value : fromSink!(_src.value);
     return this;
   }
 

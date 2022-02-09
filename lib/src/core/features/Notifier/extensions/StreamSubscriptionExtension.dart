@@ -24,6 +24,11 @@ class _NotifierSubscriptionStream<T> implements NotifierSubscription<T> {
   }
 
   @override
+  NotifierSubscription<T> execute() {
+    throw(Exception("unrealized"));
+  }
+
+  @override
   void cancel() {
     subscription.cancel();
   }

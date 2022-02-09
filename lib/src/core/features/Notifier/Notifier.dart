@@ -203,6 +203,12 @@ class _NotifierSubscription<T> extends NotifierSubscription<T> {
   }
 
   @override
+  NotifierSubscription<T> execute() {
+    callback!(notifier.value);
+    return this;
+  }
+
+  @override
   void cancel() {
     if(callback != null) {
       notifier.unbind(callback!);
