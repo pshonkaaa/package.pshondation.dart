@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:true_core/src/core/typedef.dart';
 
 import 'features/Logger/EAnsiColor.dart';
-import 'features/Logger/ELogType.dart';
+import 'features/Logger/ELogLevel.dart';
 
 class TrueCoreSettings {
   static final TrueCoreSettings instance = new TrueCoreSettings();
@@ -28,7 +28,7 @@ class TrueCoreSettings {
 
 
   static final DateFormat _logFormat = new DateFormat('HH:mm:ss');
-  static void _defaultLogHandler(DateTime date, ELogType type, Object? tag, Object? msg) {
+  static void _defaultLogHandler(DateTime date, ELogLevel level, Object? tag, Object? msg) {
     String time = _logFormat.format(date);
 
     if(msg == null) {
@@ -39,10 +39,10 @@ class TrueCoreSettings {
       msg = "$msg";
     }
 
-    String sType = ("[" + type.label + "]").padRight(8);
+    String sType = ("[" + level.label + "]").padRight(8);
 
     final str = "[$time] $sType $tag$msg";
-    final color = _enum2color(type).toAnsi();
+    final color = _enum2color(level).toAnsi();
 
     
     final sb = new StringBuffer();
@@ -52,16 +52,16 @@ class TrueCoreSettings {
   }
 
 
-  static EAnsiColor _enum2color(ELogType type) {
-    if(type == ELogType.INFO)
+  static EAnsiColor _enum2color(ELogLevel level) {
+    if(level == ELogLevel.INFO)
         return EAnsiColor.BRIGHT_BLUE;
-    else if(type == ELogType.DEBUG)
+    else if(level == ELogLevel.DEBUG)
         return EAnsiColor.BRIGHT_MAGENTA;
-    else if(type == ELogType.WARN)
+    else if(level == ELogLevel.WARN)
         return EAnsiColor.BRIGHT_YELLOW;
-    else if(type == ELogType.ERROR)
+    else if(level == ELogLevel.ERROR)
         return EAnsiColor.BRIGHT_RED;
-    else if(type == ELogType.ASSERT)
+    else if(level == ELogLevel.ASSERT)
         return EAnsiColor.GREEN;
     return EAnsiColor.WHITE;
   }

@@ -30,7 +30,7 @@ export 'extensions/StreamExtension.dart';
 export 'features/inputs/FileInput.dart';
 
 export 'features/Logger/EAnsiColor.dart';
-export 'features/Logger/ELogType.dart';
+export 'features/Logger/ELogLevel.dart';
 
 export 'features/Notifier/INotifier.dart';
 export 'features/Notifier/INotifierSink.dart';
@@ -50,7 +50,7 @@ export 'typedef.dart';
 
 // part 'features/Logger/ColoredString.dart';
 // part 'features/Logger/EAnsiColor.dart';
-// part 'features/Logger/ELogType.dart';
+// part 'features/Logger/ELogLevel.dart';
 // part 'features/Logger/Logger.dart';
 // part 'features/Logger/LogParams.dart';
 

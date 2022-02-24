@@ -19,6 +19,13 @@ extension IterableExtension<E> on Iterable<E> {
     return where((e) => e != null);
   }
 
+  E? tryElementAt(int index) {
+    RangeError.checkNotNegative(index, "index");
+    if(index >= length)
+      return null;
+    return elementAt(index);
+  }
+
   E? tryFirstWhere(bool Function(E e) test) {
     try { return firstWhere(test); } on StateError { return null; }
   }

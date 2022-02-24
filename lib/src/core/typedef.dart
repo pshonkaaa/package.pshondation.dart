@@ -1,3 +1,3 @@
-import 'features/Logger/ELogType.dart';
+import 'features/Logger/ELogLevel.dart';
 
-typedef LogPrintFunction = void Function(DateTime date, ELogType type, Object? tag, Object? msg);
+typedef LogPrintFunction = void Function(DateTime date, ELogLevel level, Object? tag, Object? msg);

@@ -43,11 +43,10 @@ class Notifier<T> extends INotifierSink<T> {
   List<NotifierCallback<T>>? _listeners = [];
   late T _value;
   Notifier({
-    T? value,
-  }) {
-    if(value != null)
-      _value = value;
-  }
+    required T value,
+  }) : _value = value;
+
+  Notifier.empty();
 
   // SINK
   //----------------------------------------------------------------------------
@@ -153,9 +152,9 @@ class SubscribedNotifier<T, TSOURCE> extends Notifier<T> {
       required NotifierConventer<TSOURCE, T> fromSink,
       bool execute = true,
       bool transferOnSet = true,
-  }) {
+  }) : super.empty() {
     _notifier = source as Notifier<TSOURCE>;
-    _toSink = toSink ?? _defaultOnSet();
+    _toSink = toSink ?? _defaultOnSet;
     _fromSink = fromSink;
 
 
@@ -185,7 +184,7 @@ class SubscribedNotifier<T, TSOURCE> extends Notifier<T> {
     _listeners = null;
   }
 
-  static NotifierConventer<T, TSOURCE> _defaultOnSet<T, TSOURCE>() {
+  static DST _defaultOnSet<DST, SRC>(SRC value) {
     throw(new Exception("notifier.set(T value); Not realized"));
   }
 }

@@ -109,6 +109,8 @@ class _PrettyPrint implements PrettyPrint {
       msg = "null";
     else if(value is IPrettyPrint)
       msg = (value.toPrettyPrint() as _PrettyPrint).generate(tabulation);
+    else if(value is PrettyPrint)
+      msg = (value as _PrettyPrint).generate(tabulation);
     else if(value is String)
       msg = '"$value"';
     else msg = value.toString();
