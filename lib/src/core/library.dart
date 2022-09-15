@@ -8,7 +8,7 @@ export 'common/IProcessResult/interfaces/IProcessResult.dart';
 
 export 'common/IProcessResult/network/RequestApiError.dart';
 export 'common/IProcessResult/network/RequestNetworkError.dart';
-export 'common/IProcessResult/network/RequestResultCanceled.dart';
+export 'common/IProcessResult/network/RequestResultCanceledError.dart';
 
 export 'common/exceptions.dart';
 
