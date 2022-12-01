@@ -1,3 +1,4 @@
+import 'package:true_core/src/core/features/Notifier/NotifierStorage.dart';
 import 'package:true_core/src/core/features/Notifier/NotifierSubscription.dart';
 import 'package:true_core/src/core/features/Notifier/typedef.dart';
 
@@ -12,6 +13,8 @@ abstract class INotifier<T> {
   });
   
   INotifier<T> unbind(NotifierCallback<T> callback);
+
+  INotifier<T> addTo(NotifierStorage storage);
 
   Future<T> asFuture();
 }

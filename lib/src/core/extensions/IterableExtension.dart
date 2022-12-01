@@ -15,6 +15,41 @@ extension IterableExtension<E> on Iterable<E> {
     return result;
   }
 
+  bool containsList(Iterable<E> iterable, [bool wholeList = false]) {
+    if(!wholeList) {
+      final it = iterator;
+      E item;
+      while (it.moveNext()) {
+        item = it.current;
+        if(contains(item))
+          return true;
+      } return false;
+    } else {
+      final it = iterator;
+      E item;
+      while (it.moveNext()) {
+        item = it.current;
+        if(contains(item))
+          return false;
+      } return true;
+    }
+  }
+
+  Map<K, List<E>> group<K>(K callback(E e)) {
+    final Map<K, List<E>> map = {};
+    
+    final it = iterator;
+    E e;
+    while (it.moveNext()) {
+      e = it.current;
+
+      final key = callback(e);
+      if(!map.containsKey(key))
+        map[key] = [];
+      map[key]!.add(e);
+    } return map;
+  }
+
   Iterable<E> removeNull() {
     return where((e) => e != null);
   }

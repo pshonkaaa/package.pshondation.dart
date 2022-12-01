@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:true_core/src/core/features/Notifier/Notifier.dart';
+
 import 'NotifierSubscription.dart';
 
 class NotifierStorage {  
   final List<NotifierSubscription> _subscriptions = [];
+  final List<Notifier> _notifiers = [];
   final List<StreamSubscription> _streamSubscriptions = [];
   final List<NotifierStorage> _storages = [];
   
@@ -14,6 +17,11 @@ class NotifierStorage {
   void add(NotifierSubscription value) {
     _throwIfDisposed();
     _subscriptions.add(value);
+  }
+
+  void addNotifier(Notifier value) {
+    _throwIfDisposed();
+    _notifiers.add(value);
   }
 
   void addStorage(NotifierStorage storage) {
@@ -29,14 +37,20 @@ class NotifierStorage {
   /// Cancel all subscriptions and clear list
   void clear() {
     _throwIfDisposed();
-    for(var sub in _subscriptions)
+    for(final sub in _subscriptions)
       sub.cancel();
     _subscriptions.clear();
+
+    for(final sub in _notifiers)
+      sub.dispose();
+    _notifiers.clear();
 
     for(var sub in _streamSubscriptions)
       sub.cancel();
     _streamSubscriptions.clear();
 
+    for(var sub in _storages)
+      sub.dispose();
     _storages.clear();
   }
 
@@ -44,7 +58,7 @@ class NotifierStorage {
   void dispose() {
     if(!_disposed) {
       clear();
-      for(var storage in _storages)
+      for(final storage in _storages)
         storage.dispose();
     } _disposed = true;
   }

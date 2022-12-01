@@ -67,10 +67,15 @@ class Notifier<T> extends INotifierSink<T> {
   }
   
   @override
-  INotifierSink<T> unbind(NotifierCallback<T> callback) {
+  Notifier<T> unbind(NotifierCallback<T> callback) {
     _throwIfDisposed();
     
     _listeners!.remove(callback);
+    return this;
+  }
+
+  Notifier<T> addTo(NotifierStorage storage) {
+    storage.addNotifier(this);
     return this;
   }
 

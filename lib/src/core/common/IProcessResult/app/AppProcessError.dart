@@ -28,4 +28,16 @@ abstract class AppProcessError implements IProcessResult {
 
   @override
   String toPrettyString() => toPrettyPrint().generate();
+
+  @override
+  String toString() {
+    final sb = StringBuffer();
+    sb.writeln("AppProcessError");
+    if(error != null)
+      sb.writeln("Caused by $error");
+    if(stackTrace != null) {
+      sb.writeln("Stacktrace:");
+      sb.writeln(stackTrace);
+    } return sb.toString();
+  }
 }
