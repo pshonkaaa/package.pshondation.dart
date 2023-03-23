@@ -24,6 +24,7 @@ export 'common/Subject.dart';
 export 'common/TimeUnits.dart';
 
 export 'extensions/IterableExtension.dart';
+export 'extensions/IterableListExtension.dart';
 export 'extensions/ListExtension.dart';
 export 'extensions/StreamExtension.dart';
 
@@ -41,11 +42,15 @@ export 'features/Notifier/typedef.dart';
 
 export 'features/BufferPointer.dart';
 export 'features/ByteBuilder.dart';
+export 'features/IAppMain.dart';
 export 'features/Profiler.dart';
+export 'features/Scheduler.dart';
+export 'features/ServiceManager.dart';
 export 'features/SyncFunctionStack.dart';
 
 export 'TrueCoreSettings.dart';
 export 'typedef.dart';
+export 'functions.dart';
 
 
 // part 'features/Logger/ColoredString.dart';

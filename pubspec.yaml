@@ -1,14 +1,15 @@
 name: true_core
 description:
-version: 0.0.4
+version: 0.0.6
 homepage:
 publish_to: none
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   # DateFormat
   intl: any
+  meta: any
 
   synchronized: any

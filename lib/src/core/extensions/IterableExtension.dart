@@ -1,3 +1,5 @@
+typedef CompareFunction<E> = bool Function(E e1, E e2);
+
 extension IterableExtension<E> on Iterable<E> {
   E? get tryFirst {
     Iterator<E> it = iterator;
@@ -35,6 +37,7 @@ extension IterableExtension<E> on Iterable<E> {
     }
   }
 
+  @Deprecated("review!")
   Map<K, List<E>> group<K>(K callback(E e)) {
     final Map<K, List<E>> map = {};
     
@@ -48,6 +51,24 @@ extension IterableExtension<E> on Iterable<E> {
         map[key] = [];
       map[key]!.add(e);
     } return map;
+  }
+
+  List<E> filter([CompareFunction<E>? compare]) {
+    final List<E> list = [];
+    
+    if(compare != null) {
+      for(final item in this) {
+        if(list.tryFirstWhere((e) => compare(e, item)) == null) {
+          list.add(item);
+        }
+      }
+    } else {
+      for(final item in this) {
+        if(list.tryFirstWhere((e) => e == item) == null) {
+          list.add(item);
+        }
+      }
+    } return list;
   }
 
   Iterable<E> removeNull() {

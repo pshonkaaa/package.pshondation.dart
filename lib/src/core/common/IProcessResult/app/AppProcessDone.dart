@@ -12,7 +12,7 @@ class AppProcessDone implements IProcessResult {
 
   @override
   PrettyPrint toPrettyPrint() {
-    final pp = new PrettyPrint(title: "AppProcessDone");
+    final pp = PrettyPrint(title: this);
     pp.add("isDone", isDone);
     pp.add("isError", isError);
     return pp;

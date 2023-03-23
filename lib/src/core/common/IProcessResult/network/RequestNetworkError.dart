@@ -7,18 +7,12 @@ class RequestNetworkError extends AppProcessError {
   final bool protoDone;
 
   final bool incorrectResponse;
-  
-  @override
-  final Object? error;
-  
-  @override
-  final StackTrace? stackTrace;
   RequestNetworkError({
     required this.connected,
     required this.protoDone,
     required this.incorrectResponse,
-    this.error,
-    this.stackTrace,
+    super.error,
+    super.stackTrace
   });
   
   @override
@@ -30,8 +24,4 @@ class RequestNetworkError extends AppProcessError {
     pp.append(super.toPrettyPrint());
     return pp;
   }
-
-  @override
-  String toString()
-    => (error == null ? "Нет соединения" : "\nError: $error\nStacktrace: $stackTrace");
 }

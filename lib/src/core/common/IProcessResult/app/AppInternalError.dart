@@ -3,14 +3,9 @@ import 'package:true_core/src/core/common/PrettyPrint.dart';
 import 'AppProcessError.dart';
 
 class AppInternalError extends AppProcessError {
-  @override
-  final Object? error;
-
-  @override
-  final StackTrace? stackTrace;
   AppInternalError({
-    this.error,
-    this.stackTrace,
+    super.error,
+    super.stackTrace
   });
 
   @override

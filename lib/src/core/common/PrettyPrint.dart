@@ -4,7 +4,7 @@ abstract class IPrettyPrint {
 
 abstract class PrettyPrint {
   factory PrettyPrint({
-    required String title,
+    required Object title,
     EPrettyPrintType type,
     int spacesPerTab,
   }) = _PrettyPrint;
@@ -23,15 +23,21 @@ enum EPrettyPrintType {
 }
 
 class _PrettyPrint implements PrettyPrint {
-  final String title;
+  late final String title;
   final EPrettyPrintType type;
   final int spacesPerTab;
   final List<MapEntry<String, Object?>> entries = [];
   _PrettyPrint({
-    required this.title,
+    required Object title,
     this.type = EPrettyPrintType.object,
     this.spacesPerTab = 2,
-  });
+  }) {
+    if(title is Type)
+      this.title = title.toString();
+    else if(title is String)
+      this.title = title;
+    else this.title = title.runtimeType.toString();
+  }
 
   @override
   PrettyPrint add(String key, Object? value) {
