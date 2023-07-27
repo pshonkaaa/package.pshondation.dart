@@ -1,3 +1,5 @@
+import 'dart:async';
+
 void throwIf(bool flag, [Object? error]) {
   if(flag)
     throw error ?? "Unknown exception";
@@ -5,6 +7,38 @@ void throwIf(bool flag, [Object? error]) {
 
 
 typedef Predicate<T> = bool Function(T value);
+typedef Test = bool Function();
+
+Future<bool> waitUntil({
+  required bool Function() test,
+  Duration delay = const Duration(milliseconds: 10),
+  required Duration timeout,
+  bool throwException = true,
+}) async {
+  final stackTrace = StackTrace.current;
+  final completer = Completer<bool>();
+  
+  final timer = Timer(
+    timeout, () {
+      if(completer.isCompleted)
+        return;
+      if(throwException)
+        completer.completeError(TimeoutException(null, timeout), stackTrace);
+      else completer.complete(false);
+  });
+  
+  Future(() async {
+    while(true) {
+      if(completer.isCompleted)
+        break;
+      if(test() == false) {
+        timer.cancel();
+        completer.complete(true);
+      } await Future.delayed(delay);
+    }
+  });
+  return await completer.future;
+}
 
 Future<T> tryExecuteSeveralTimes<T>({
   required Future<T> callback(),

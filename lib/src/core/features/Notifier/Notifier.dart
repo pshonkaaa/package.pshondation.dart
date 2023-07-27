@@ -48,6 +48,8 @@ class Notifier<T> extends INotifierSink<T> {
 
   Notifier.empty();
 
+  bool get disposed => _listeners == null;
+
   // SINK
   //----------------------------------------------------------------------------
   @override

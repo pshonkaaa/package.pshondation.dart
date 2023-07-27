@@ -28,7 +28,7 @@ export 'extensions/IterableListExtension.dart';
 export 'extensions/ListExtension.dart';
 export 'extensions/StreamExtension.dart';
 
-export 'features/inputs/FileInput.dart';
+export 'features/inputs/FileInput.dart' if (dart.library.js) '';
 
 export 'features/Logger/EAnsiColor.dart';
 export 'features/Logger/ELogLevel.dart';

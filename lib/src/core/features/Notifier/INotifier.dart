@@ -7,6 +7,8 @@ abstract class INotifier<T> {
 
   int get length;
 
+  bool get disposed;
+
   NotifierSubscription<T> bind(
     NotifierCallback<T> callback, {
       bool execute = false,
