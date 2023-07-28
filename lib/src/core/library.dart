@@ -23,6 +23,7 @@ export 'common/Result.dart';
 export 'common/Subject.dart';
 export 'common/TimeUnits.dart';
 
+export 'extensions/DirectoryExtension.dart';
 export 'extensions/IterableExtension.dart';
 export 'extensions/IterableListExtension.dart';
 export 'extensions/ListExtension.dart';
