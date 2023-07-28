@@ -8,6 +8,22 @@ enum IfExistBehavior {
 }
 
 extension DirectoryExtension on Directory {
+  Future<File> createTempFile([
+    String prefix = '',
+    String suffix = '',
+  ]) async {
+    File tmpFile;
+
+    for(int i = DateTime.now().millisecondsSinceEpoch; true; i++) {
+      tmpFile = File(path + Platform.pathSeparator + prefix + i.toRadixString(16).padLeft(16, '0') + suffix);
+      if(await tmpFile.exists())
+        continue;
+      break;
+    } await tmpFile.create(recursive: true);
+    
+    return tmpFile;
+  }
+
   Future<Directory> copy(
     String path, {
       bool recursive = false,
