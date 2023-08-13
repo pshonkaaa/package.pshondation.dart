@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:true_core/library.dart';
+import 'package:true_core/src/core/common/CancelToken.dart';
+
 void throwIf(bool flag, [Object? error]) {
   if(flag)
     throw error ?? "Unknown exception";
@@ -10,11 +13,12 @@ typedef Predicate<T> = bool Function(T value);
 typedef Test = bool Function();
 
 Future<bool> waitUntil({
-  required bool Function() test,
+  required FutureOr<bool> Function() test,
   Duration delay = const Duration(milliseconds: 10),
   required Duration timeout,
   bool throwException = true,
-}) async {
+  CancelToken? cancelToken,
+}) {
   final stackTrace = StackTrace.current;
   final completer = Completer<bool>();
   
@@ -22,6 +26,7 @@ Future<bool> waitUntil({
     timeout, () {
       if(completer.isCompleted)
         return;
+      
       if(throwException)
         completer.completeError(TimeoutException(null, timeout), stackTrace);
       else completer.complete(false);
@@ -29,15 +34,23 @@ Future<bool> waitUntil({
   
   Future(() async {
     while(true) {
+      if(cancelToken?.isCancelled ?? false) {
+        completer.completeError(CanceledException(), stackTrace);
+        break;
+      }
+
       if(completer.isCompleted)
         break;
-      if(test() == false) {
-        timer.cancel();
+        
+      if((await test()) == false) {
         completer.complete(true);
+        break;
       } await Future.delayed(delay);
     }
+
+    timer.cancel();
   });
-  return await completer.future;
+  return completer.future;
 }
 
 Future<T> tryExecuteSeveralTimes<T>({

@@ -6,6 +6,13 @@ class NullPointerException implements Exception {
   String toString() => "$param is null.";
 }
 
+class CanceledException implements Exception {
+  CanceledException();
+
+  @override
+  String toString() => "CanceledException";
+}
+
 class UnknownException implements Exception {
   final String msg;
   UnknownException(this.msg);

@@ -12,6 +12,7 @@ export 'common/IProcessResult/network/RequestResultCanceledError.dart';
 
 export 'common/exceptions.dart';
 
+export 'common/CancelToken.dart';
 export 'common/InputController.dart';
 export 'common/InputReader.dart';
 export 'common/InputWriter.dart';
@@ -23,7 +24,7 @@ export 'common/Result.dart';
 export 'common/Subject.dart';
 export 'common/TimeUnits.dart';
 
-export 'extensions/DirectoryExtension.dart';
+export 'extensions/DirectoryExtension.dart' if (dart.library.js) '';
 export 'extensions/IterableExtension.dart';
 export 'extensions/IterableListExtension.dart';
 export 'extensions/ListExtension.dart';
