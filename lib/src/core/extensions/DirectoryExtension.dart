@@ -24,6 +24,25 @@ extension DirectoryExtension on Directory {
     return tmpFile;
   }
 
+  Future<bool> contains(
+    String subPath,
+  ) async {
+    try {
+      final type = await FileSystemEntity.type(path + Platform.pathSeparator + subPath);
+      return type != FileSystemEntityType.notFound;
+    } on PathNotFoundException {
+      return false;
+    }
+  }
+
+  /// TODO could be better, if use native dir.list
+  Future<bool> containsList(
+    List<String> subPaths,
+  ) async {
+    final futures = subPaths.map((e) => contains(e)).toList();
+    return !(await Future.wait(futures)).contains(false);
+  }
+
   Future<Directory> copy(
     String path, {
       bool recursive = false,

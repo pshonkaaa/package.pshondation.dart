@@ -1,6 +1,6 @@
 name: true_core
 description:
-version: 0.0.6
+version: 0.0.7
 homepage:
 publish_to: none
 
@@ -11,5 +11,6 @@ dependencies:
   # DateFormat
   intl: any
   meta: any
+  logging: any
 
   synchronized: any

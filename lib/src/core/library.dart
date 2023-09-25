@@ -44,7 +44,7 @@ export 'features/Notifier/typedef.dart';
 
 export 'features/BufferPointer.dart';
 export 'features/ByteBuilder.dart';
-export 'features/IAppMain.dart';
+export 'features/AppLauncher.dart';
 export 'features/Profiler.dart';
 export 'features/Scheduler.dart';
 export 'features/ServiceManager.dart';

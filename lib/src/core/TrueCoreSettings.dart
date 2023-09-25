@@ -6,7 +6,6 @@ import 'features/Logger/ELogLevel.dart';
 
 class TrueCoreSettings {
   static final TrueCoreSettings instance = new TrueCoreSettings();
-  
 
   LogPrintFunction logHandler = _defaultLogHandler;
 
