@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:logger/logger.dart';
 
 abstract class AppLauncher {
-  static void start(IAppMain app) {
+  static void start(BaseAppMain app) {
     runZonedGuarded<void>(() async {
       await app.preInit();
       if(app._closed)
@@ -21,7 +21,7 @@ abstract class AppLauncher {
     }, (o, s) => app.onError(o, s));
   }
 
-  static void close(IAppMain app) {
+  static void close(BaseAppMain app) {
     app._closed = true;
     app.onExit(); //html.then((code) => exit(code));
   }
