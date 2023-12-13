@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:true_core/library.dart';
-import 'package:true_core/src/external/util.dart';
 
 /// ### Usage:
 /// ```
@@ -33,7 +30,7 @@ import 'package:true_core/src/external/util.dart';
 /// print(pContainer.time(TimeUnits.MILLISECONDS).toString() + " ms");
 /// ```
 abstract class Profiler {
-  static bool handleLongOperations = false;
+  // static bool handleLongOperations = false;
   static Duration warnExecutionTime = Duration(seconds: 1);
 
   factory Profiler([
@@ -103,14 +100,14 @@ class _Profiler implements Profiler {
   _Profiler start() {
     sw.start();
 
-    if(Profiler.handleLongOperations)
-      _ProfileWatcher.instace.watch(this);
+    // if(Profiler.handleLongOperations)
+    //   _ProfileWatcher.instace.watch(this);
     return this;
   }
 
   @override
   Profiler stop({bool stopAll = true}) {
-    _ProfileWatcher.instace.stopWatch(this);
+    // _ProfileWatcher.instace.stopWatch(this);
 
     sw.stop();
     if(stopAll) {
@@ -172,44 +169,44 @@ class _Profiler implements Profiler {
   String toString() => "Profiler(inMicroseconds: ${time(TimeUnits.MICROSECONDS).toString()})";
 }
 
-class _ProfileWatcher {
-  static final _ProfileWatcher instace = new _ProfileWatcher();
+// class _ProfileWatcher {
+//   static final _ProfileWatcher instace = new _ProfileWatcher();
   
-  final List<_Profiler> profilers = [];
+//   final List<_Profiler> profilers = [];
 
-  void watch(_Profiler p) {
-    profilers.add(p);
-    _start();
-  }
+//   void watch(_Profiler p) {
+//     profilers.add(p);
+//     _start();
+//   }
 
-  void stopWatch(_Profiler p) {
-    if(profilers.remove(p)) {
-      if(p.elapsed > Profiler.warnExecutionTime)
-        _debugProfiler(p);
-    }
-  }
+//   void stopWatch(_Profiler p) {
+//     if(profilers.remove(p)) {
+//       if(p.elapsed > Profiler.warnExecutionTime)
+//         _debugProfiler(p);
+//     }
+//   }
 
   
-  Timer? _timer;
-  static const TimeUnits timeUnit = TimeUnits.MILLISECONDS;
-  void _start() {
-    if(_timer?.isActive ?? false)
-      return;
-    _timer = new Timer(Duration(milliseconds: 500), () {
-      for(final p in profilers) {
-        if(p.elapsed > Profiler.warnExecutionTime) {
-          _debugProfiler(p);
-        }
-      }
+//   Timer? _timer;
+//   static const TimeUnits timeUnit = TimeUnits.MILLISECONDS;
+//   void _start() {
+//     if(_timer?.isActive ?? false)
+//       return;
+//     _timer = new Timer(Duration(milliseconds: 500), () {
+//       for(final p in profilers) {
+//         if(p.elapsed > Profiler.warnExecutionTime) {
+//           _debugProfiler(p);
+//         }
+//       }
       
 
-      if(profilers.isEmpty)
-        return;
-      _start();
-    });
-  }
+//       if(profilers.isEmpty)
+//         return;
+//       _start();
+//     });
+//   }
 
-  void _debugProfiler(Profiler p) {
-    printWarn(_Profiler.TAG, "${p.name} was executing ${p.time(timeUnit)} times in $timeUnit");
-  }
-}
+//   void _debugProfiler(Profiler p) {
+//     printWarn(_Profiler.TAG, "${p.name} was executing ${p.time(timeUnit)} times in $timeUnit");
+//   }
+// }

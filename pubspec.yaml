@@ -12,5 +12,6 @@ dependencies:
   intl: any
   meta: any
   logging: any
+  logger: any
 
   synchronized: any

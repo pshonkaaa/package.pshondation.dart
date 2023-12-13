@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:logger/logger.dart';
+
 abstract class AppLauncher {
   static void start(IAppMain app) {
     runZonedGuarded<void>(() async {
@@ -24,7 +26,11 @@ abstract class AppLauncher {
     app.onExit(); //html.then((code) => exit(code));
   }
 
-  static void defaultErrorHandler(Object error, StackTrace stackTrace) {
+  static void defaultErrorHandler(
+    BaseAppMain main,
+    Object error,
+    StackTrace stackTrace,
+  ) {
     final sb = StringBuffer();
     sb.writeln("THE APPLICATION GOT AN UNCAUGHT EXCEPTION");
     sb.writeln("-----------------------------------------");
@@ -38,9 +44,11 @@ abstract class AppLauncher {
 
     final msg = sb.toString();
 
-    // TODO setup output
-    print(msg);
-    
+    if(main.logger != null) {
+      main.logger?.e(msg);
+    } else {
+      print(msg);
+    }
   }
 }
 
@@ -51,6 +59,8 @@ abstract class IAppMain extends BaseAppMain {
 
 abstract class BaseAppMain {
   bool _closed = false;
+
+  Logger? logger;
 
   @deprecated
   static void start(IAppMain app)
@@ -77,7 +87,7 @@ abstract class BaseAppMain {
   }
 
   void onError(Object error, StackTrace stackTrace)
-    => AppLauncher.defaultErrorHandler(error, stackTrace);
+    => AppLauncher.defaultErrorHandler(this, error, stackTrace);
   
   Future<int> onExit() async {
     return 0;

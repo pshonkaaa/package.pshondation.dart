@@ -3,8 +3,10 @@ import 'package:true_core/library.dart';
 import 'package:true_core/src/external/typedef.dart';
 
 class TrueCoreSettings {
+  @deprecated
   static final TrueCoreSettings instance = new TrueCoreSettings();
 
+  @deprecated
   LogPrintFunction logHandler = _defaultLogHandler;
 
 
@@ -24,7 +26,9 @@ class TrueCoreSettings {
 
 
 
+  @deprecated
   static final DateFormat _logFormat = new DateFormat('HH:mm:ss');
+  @deprecated
   static void _defaultLogHandler(DateTime date, ELogLevel level, Object? tag, Object? msg) {
     String time = _logFormat.format(date);
 
