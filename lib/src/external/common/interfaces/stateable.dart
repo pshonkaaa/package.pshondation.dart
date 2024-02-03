@@ -1,17 +1,13 @@
 import 'dart:async';
 
-abstract class IStateable {
+import 'package:true_core/library.dart';
+
+abstract class IStateable implements IDisposable {
   bool get initialized;
 
-  bool get disposed;
-
   void initState();
-
-  void dispose();
 }
 
-abstract class IAsyncStateable implements IStateable {
-  FutureOr<void> initState();
-  
-  FutureOr<void> dispose();
+abstract class IAsyncStateable implements IStateable, IAsyncDisposable {
+  Future<void> initState();
 }

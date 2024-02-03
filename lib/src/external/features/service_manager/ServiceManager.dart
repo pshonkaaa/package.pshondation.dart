@@ -50,7 +50,7 @@ abstract class ServiceManager {
 
   static Future<void> start(
     BaseService service, {
-      Duration? repeatDuration,
+      Duration? repeatInterval,
   }) async {
     if(!_services.contains(service))
       _services.add(service);
@@ -60,8 +60,8 @@ abstract class ServiceManager {
 
     service._stopped = false;
 
-    if(repeatDuration != null)
-      service._duration = repeatDuration;
+    if(repeatInterval != null)
+      service._duration = repeatInterval;
     
     await _runService(service);
   }

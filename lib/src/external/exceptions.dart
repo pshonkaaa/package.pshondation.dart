@@ -21,6 +21,14 @@ class UnknownException implements Exception {
   String toString() => "UnknownException: $msg";
 }
 
+class UnreachableException implements Exception {
+  final String msg;
+  UnreachableException([this.msg = '']);
+
+  @override
+  String toString() => "UnknownException: $msg";
+}
+
 class CausedByException implements Exception {
   final String message;
   final Object cause;

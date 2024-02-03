@@ -1,9 +1,9 @@
-import 'dart:async';
-
 import 'package:meta/meta.dart';
 import 'package:true_core/library.dart';
 
-abstract class BaseStateable implements IStateable {
+abstract class BaseModule implements IModule {
+  final storage = NotifierStorage();
+
   @override
   bool get initialized => _initialized;
 
@@ -16,28 +16,18 @@ abstract class BaseStateable implements IStateable {
 
   @override
   @mustCallSuper
-  void initState() {
-    // TODO throw if already init
+  Future<void> initState() async {
     _initialized = true;
     _disposed = false;
   }
 
   @override
   @mustCallSuper
-  void dispose() {
+  Future<void> dispose() async {
     _initialized = false;
     _disposed = true;
-  }
-}
 
-abstract class BaseAsyncStateable extends BaseStateable implements IAsyncStateable {
-  @override
-  Future<void> initState() async {
-    super.initState();
+    storage.clear();
   }
   
-  @override
-  Future<void> dispose() async {
-    super.dispose();
-  }
 }

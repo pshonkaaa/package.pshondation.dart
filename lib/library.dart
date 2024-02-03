@@ -2,8 +2,11 @@ library library;
 
 
 
+export 'src/external/common/base/module.dart';
 export 'src/external/common/base/stateable.dart';
 
+export 'src/external/common/interfaces/disposable.dart';
+export 'src/external/common/interfaces/module.dart';
 export 'src/external/common/interfaces/stateable.dart';
 
 export 'src/external/common/IProcessResult/app/AppInternalError.dart';
