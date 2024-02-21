@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:foundation/library.dart';
+import 'package:pshondation/library.dart';
 
 abstract class BaseModule implements IModule {
   final storage = NotifierStorage();

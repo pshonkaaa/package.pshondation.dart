@@ -1,5 +1,5 @@
-import 'package:foundation/src/external/common/IProcessResult/app/AppProcessError.dart';
-import 'package:foundation/src/external/features/pretty_print/pretty_print.dart';
+import 'package:pshondation/src/external/common/IProcessResult/app/AppProcessError.dart';
+import 'package:pshondation/src/external/features/pretty_print/pretty_print.dart';
 
 class RequestResultCanceledError extends AppProcessError {
   RequestResultCanceledError({

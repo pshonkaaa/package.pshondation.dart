@@ -1,5 +1,5 @@
-import 'package:foundation/src/external/common/IProcessResult/interfaces/IProcessResult.dart';
-import 'package:foundation/src/external/features/pretty_print/pretty_print.dart';
+import 'package:pshondation/src/external/common/IProcessResult/interfaces/IProcessResult.dart';
+import 'package:pshondation/src/external/features/pretty_print/pretty_print.dart';
 
 class AppProcessError implements IProcessResult {
   final Object? error;

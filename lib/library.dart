@@ -59,6 +59,5 @@ export 'src/external/features/stacktrace/stackframe.dart';
 
 export 'src/external/deprecated/SyncFunctionStack.dart';
 
-export 'src/external/TrueCoreSettings.dart';
 export 'src/external/typedef.dart';
 export 'src/external/functions.dart';

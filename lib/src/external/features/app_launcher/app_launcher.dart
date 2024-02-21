@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
-import 'package:foundation/src/external/features/default_app_log_printer.dart';
+import 'package:pshondation/src/external/features/default_app_log_printer.dart';
 
 abstract class AppLauncher {
   static Future<void> start(BaseAppMain app) async {

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:foundation/library.dart';
+import 'package:pshondation/library.dart';
 
 abstract class IStateable implements IDisposable {
   bool get initialized;

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:foundation/src/external/features/notifier/external/notifier_storage.dart';
-import 'package:foundation/src/external/features/notifier/external/notifier_subscription.dart';
+import 'package:pshondation/src/external/features/notifier/external/notifier_storage.dart';
+import 'package:pshondation/src/external/features/notifier/external/notifier_subscription.dart';
 
 extension StreamSubscriptionExtension on StreamSubscription {
   void addTo(NotifierStorage storage) {

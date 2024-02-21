@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
-import 'package:foundation/src/external/features/stacktrace/stackframe.dart';
+import 'package:pshondation/src/external/features/stacktrace/stackframe.dart';
 
 typedef StackTraceConverter = List<StackFrame> Function(StackTrace stackTrace);
 

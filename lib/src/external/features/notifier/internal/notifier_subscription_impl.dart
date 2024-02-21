@@ -1,4 +1,4 @@
-import 'package:foundation/library.dart';
+import 'package:pshondation/library.dart';
 
 class NotifierSubscriptionImpl<T> extends NotifierSubscription<T> {
   NotifierCallback<T>? callback;
