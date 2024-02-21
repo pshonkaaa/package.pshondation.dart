@@ -1,4 +1,4 @@
-import 'package:true_core/src/external/deprecated/Logger/EAnsiColor.dart';
+import 'package:foundation/src/external/deprecated/Logger/EAnsiColor.dart';
 
 @deprecated
 class ELogLevel {

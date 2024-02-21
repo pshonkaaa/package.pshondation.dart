@@ -1,4 +1,4 @@
-import 'package:true_core/library.dart';
+import 'package:foundation/library.dart';
 
 import 'notifier_impl.dart';
 

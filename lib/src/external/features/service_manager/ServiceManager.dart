@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:true_core/src/external/extensions/IterableExtension.dart';
+import 'package:foundation/src/external/extensions/IterableExtension.dart';
 
 import '../notifier/external/notifier.dart';
 

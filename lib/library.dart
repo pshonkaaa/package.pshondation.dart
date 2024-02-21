@@ -49,10 +49,14 @@ export 'src/external/features/notifier/external/typedef.dart';
 
 export 'src/external/features/buffer_pointer.dart';
 export 'src/external/features/byte_builder.dart';
+export 'src/external/features/default_app_log_printer.dart';
+
 export 'src/external/features/app_launcher/app_launcher.dart';
 export 'src/external/features/profiler/profiler.dart';
 export 'src/external/features/scheduler/scheduler.dart';
 export 'src/external/features/service_manager/ServiceManager.dart';
+export 'src/external/features/stacktrace/stackframe.dart';
+
 export 'src/external/deprecated/SyncFunctionStack.dart';
 
 export 'src/external/TrueCoreSettings.dart';

@@ -1,4 +1,4 @@
-import 'package:true_core/src/external/features/notifier/external/interfaces/notifier.dart';
+import 'package:foundation/src/external/features/notifier/external/interfaces/notifier.dart';
 
 abstract class INotifierSink<T> implements INotifier<T> {
   set value(T value);

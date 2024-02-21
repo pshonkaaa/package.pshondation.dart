@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:true_core/src/external/features/notifier/external/notifier.dart';
+import 'package:foundation/src/external/features/notifier/external/notifier.dart';
 
 import 'notifier_subscription.dart';
 

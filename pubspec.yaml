@@ -1,6 +1,6 @@
-name: true_core
+name: foundation
 description:
-version: 0.0.8
+version: 0.1.0
 homepage:
 publish_to: none
 
@@ -8,7 +8,6 @@ environment:
   sdk: ">=2.19.0 <3.0.0"
 
 dependencies:
-  # DateFormat
   intl: any
   meta: any
   logging: any

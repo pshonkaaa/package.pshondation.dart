@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:meta/meta.dart';
-import 'package:true_core/library.dart';
+import 'package:foundation/library.dart';
 
 abstract class BaseStateable implements IStateable {
   @override

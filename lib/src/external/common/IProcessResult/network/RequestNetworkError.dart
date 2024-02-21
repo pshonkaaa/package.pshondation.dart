@@ -1,5 +1,5 @@
-import 'package:true_core/src/external/common/IProcessResult/app/AppProcessError.dart';
-import 'package:true_core/src/external/features/pretty_print/pretty_print.dart';
+import 'package:foundation/src/external/common/IProcessResult/app/AppProcessError.dart';
+import 'package:foundation/src/external/features/pretty_print/pretty_print.dart';
 
 class RequestNetworkError extends AppProcessError {
   final bool connected;

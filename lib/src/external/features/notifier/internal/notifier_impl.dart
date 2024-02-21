@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:true_core/library.dart';
+import 'package:foundation/library.dart';
 
 import 'notifier_subscription_impl.dart';
 

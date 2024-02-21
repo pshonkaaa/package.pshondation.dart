@@ -1,4 +1,4 @@
-import 'package:true_core/src/external/features/pretty_print/pretty_print.dart';
+import 'package:foundation/src/external/features/pretty_print/pretty_print.dart';
 
 import 'AppProcessError.dart';
 

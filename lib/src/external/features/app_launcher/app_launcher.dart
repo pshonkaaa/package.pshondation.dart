@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
+import 'package:foundation/src/external/features/default_app_log_printer.dart';
 
 abstract class AppLauncher {
   static Future<void> start(BaseAppMain app) async {
@@ -51,11 +52,7 @@ abstract class AppLauncher {
 
     final msg = sb.toString();
 
-    if(main.logger != null) {
-      main.logger?.e(msg);
-    } else {
-      print(msg);
-    }
+    main.logger.e(msg);
   }
 }
 
@@ -71,8 +68,9 @@ abstract class BaseAppMain {
 
   bool _closed = false;
 
-  /// TODO add default logger
-  Logger? logger;
+  Logger logger = Logger(
+    printer: DefaultAppLogPrinter.instance,
+  );
   
   final Map<Object?, Object?> zoneValues = {};
   
@@ -88,32 +86,32 @@ abstract class BaseAppMain {
 
   @mustCallSuper
   Future<void> preLaunch() async {
-    logger?.d('$TAG > preLaunch');
+    logger.d('$TAG > preLaunch');
 
     zoneValues[_appMain] = this;
   }
 
   @mustCallSuper
   Future<void> preInit() async {
-    logger?.d('$TAG > preInit');
+    logger.d('$TAG > preInit');
 
   }
 
   @mustCallSuper
   Future<void> init() async {
-    logger?.d('$TAG > init');
+    logger.d('$TAG > init');
 
   }
 
   @mustCallSuper
   Future<void> postInit() async {
-    logger?.d('$TAG > postInit');
+    logger.d('$TAG > postInit');
 
   }
 
   @mustCallSuper
   Future<void> run() async {
-    logger?.d('$TAG > run');
+    logger.d('$TAG > run');
 
   }
 

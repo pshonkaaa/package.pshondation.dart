@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:true_core/library.dart';
+import 'package:foundation/library.dart';
 
 enum IfExistBehavior {
   addSuffix,

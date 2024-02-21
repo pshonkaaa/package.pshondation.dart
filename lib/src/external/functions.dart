@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:true_core/library.dart';
-import 'package:true_core/src/external/common/cancel_token.dart';
+import 'package:foundation/library.dart';
+import 'package:foundation/src/external/common/cancel_token.dart';
 
 void throwIf(bool flag, [Object? error]) {
   if(flag)

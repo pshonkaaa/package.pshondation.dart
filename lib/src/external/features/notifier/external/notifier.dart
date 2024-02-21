@@ -1,5 +1,5 @@
-import 'package:true_core/src/external/features/notifier/external/interfaces/notifier_sink.dart';
-import 'package:true_core/src/external/features/notifier/external/typedef.dart';
+import 'package:foundation/src/external/features/notifier/external/interfaces/notifier_sink.dart';
+import 'package:foundation/src/external/features/notifier/external/typedef.dart';
 
 import '../internal/notifier_impl.dart';
 import '../internal/notifier_subscription_impl.dart';

@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:true_core/library.dart';
-import 'package:true_core/src/external/typedef.dart';
+import 'package:foundation/library.dart';
+import 'package:foundation/src/external/typedef.dart';
 
 class TrueCoreSettings {
   @deprecated
