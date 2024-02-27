@@ -5,7 +5,12 @@ import 'package:meta/meta.dart';
 import 'package:pshondation/src/external/features/default_app_log_printer.dart';
 
 abstract class AppLauncher {
-  static Future<void> start(BaseAppMain app) async {
+  static Future<void> start(
+    BaseAppMain app, [
+      List<String>? arguments,
+  ]) async {
+    app.arguments = arguments ?? [];
+    
     await app.preLaunch();
     
     runZonedGuarded<void>(() async {
@@ -69,8 +74,11 @@ abstract class BaseAppMain {
   bool _closed = false;
 
   Logger logger = Logger(
+    filter: ProductionFilter(),
     printer: DefaultAppLogPrinter.instance,
   );
+
+  late final List<String> arguments;
   
   final Map<Object?, Object?> zoneValues = {};
   
