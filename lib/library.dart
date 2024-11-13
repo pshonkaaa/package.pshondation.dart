@@ -24,8 +24,13 @@ export 'src/library/export/exceptions.dart';
 export 'src/library/export/classes/error_description.dart';
 export 'src/library/export/classes/key_value.dart';
 export 'src/library/export/classes/network_timeouts.dart';
+
 export 'src/library/export/features/pretty_print/pretty_print.dart';
 export 'src/library/export/features/range.dart';
+export 'src/library/export/features/value_getter.dart';
+export 'src/library/export/features/value_reference.dart';
+export 'src/library/export/features/value_setter.dart';
+
 export 'src/library/export/classes/result.dart';
 export 'src/library/export/deprecated/subject.dart';
 
@@ -48,6 +53,7 @@ export 'src/library/export/features/notifier/external/typedef.dart';
 export 'src/library/export/features/buffer_pointer.dart';
 export 'src/library/export/features/byte_builder.dart';
 export 'src/library/export/features/default_app_log_printer.dart';
+export 'src/library/export/features/deferred_executor.dart';
 export 'src/library/export/features/disposable_storage.dart';
 
 export 'src/library/export/features/app_launcher/app_launcher.dart';

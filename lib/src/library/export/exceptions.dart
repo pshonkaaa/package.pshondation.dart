@@ -1,4 +1,7 @@
 abstract class ExceptionsKit {
+  static Exception alreadyStarted(Object object)
+    => Exception('${object.runtimeType} has been already started');
+
   static Exception alreadyInitialized(Object object)
     => Exception('${object.runtimeType} has been already initialized');
 
@@ -7,6 +10,12 @@ abstract class ExceptionsKit {
 
   static Exception alreadyDisposed(Object object)
     => Exception('${object.runtimeType} has been already disposed');
+
+  static Exception objectNotSupported(Object object)
+    => notSupported('${object.runtimeType}');
+
+  static Exception notSupported([String? message])
+    => Exception(message == null ? 'Operation not supported' : '$message is not supported');
 }
 
 
