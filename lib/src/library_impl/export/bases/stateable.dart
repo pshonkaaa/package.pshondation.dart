@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:pshondation/library.dart';
 import 'package:pshondation/library_impl.dart';
 
-mixin StateableMixin on DisposableMixin implements Stateable {
+abstract class BaseStateable extends BaseDisposable implements Stateable {
   @override
   bool get initialized => _initialized;
 
@@ -41,7 +41,7 @@ mixin StateableMixin on DisposableMixin implements Stateable {
   }
 }
 
-mixin AsyncStateableMixin on StateableMixin implements AsyncStateable {
+abstract class BaseAsyncStateable extends BaseStateable implements AsyncStateable {
   @override
   Future<void> initState() async {
     super.initState();

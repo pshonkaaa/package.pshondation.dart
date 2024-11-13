@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:pshondation/library.dart';
+import 'package:pshondation/library_impl.dart';
 
 /// TODO review
-class DisposableStorage with DisposableMixin {  
+class DisposableStorage extends BaseDisposable {  
   final List<Disposable> _disposes = [];
   final List<DisposableStorage> _storages = [];
   
