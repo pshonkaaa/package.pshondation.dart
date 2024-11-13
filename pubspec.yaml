@@ -13,4 +13,6 @@ dependencies:
   logging: any
   logger: any
 
+  cancellation_token: any
+  
   synchronized: any
