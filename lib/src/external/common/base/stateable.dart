@@ -3,30 +3,24 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:pshondation/library.dart';
 
-abstract class BaseStateable implements IStateable {
+abstract class BaseStateable extends BaseDisposable implements IStateable {
   @override
   bool get initialized => _initialized;
 
-  @override
-  bool get disposed => _disposed;
-
   bool _initialized = false;
-  
-  bool _disposed = false;
 
   @override
   @mustCallSuper
   void initState() {
-    // TODO throw if already init
+    // TODO throw if already initialized
     _initialized = true;
-    _disposed = false;
   }
 
   @override
   @mustCallSuper
   void dispose() {
+    super.dispose();
     _initialized = false;
-    _disposed = true;
   }
 }
 

@@ -3,9 +3,18 @@ import 'dart:async';
 import 'package:pshondation/library.dart';
 import 'package:pshondation/src/external/common/cancel_token.dart';
 
-void throwIf(bool flag, [Object? error]) {
+@deprecated
+void throwIf(bool flag, [Object? error]) 
+  => conditionThrow(flag, error);
+
+void assertThrow(bool flag, [Object? error]) {
+  if(!flag)
+    throw error ?? Exception('Unknown exception');
+}
+
+void conditionThrow(bool flag, [Object? error]) {
   if(flag)
-    throw error ?? "Unknown exception";
+    throw error ?? Exception('Unknown exception');
 }
 
 

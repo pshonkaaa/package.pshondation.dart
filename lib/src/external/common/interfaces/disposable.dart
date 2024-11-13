@@ -7,5 +7,9 @@ abstract class IDisposable {
 }
 
 abstract class IAsyncDisposable implements IDisposable {
-  FutureOr<void> dispose();
+  @override
+  bool get disposed;
+
+  @override
+  Future<void> dispose();
 }

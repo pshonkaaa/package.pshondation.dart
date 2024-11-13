@@ -26,15 +26,20 @@ class UnreachableException implements Exception {
   UnreachableException([this.msg = '']);
 
   @override
-  String toString() => "UnknownException: $msg";
+  String toString() => "UnreachableException: $msg";
 }
 
 class CausedByException implements Exception {
-  final String message;
+  CausedByException(
+    this.cause,
+    this.stacktrace,
+  );
+
   final Object cause;
+  
   final StackTrace stacktrace;
-  CausedByException(this.message, this.cause, this.stacktrace);
 
   @override
-  String toString() => (message.isEmpty ? "" : "$message\n") + "Caused by: $cause\nStackTrace:\n$stacktrace";
+  // String toString() => (message.isEmpty ? "" : "$message\n") + "Caused by: $cause\nStackTrace:\n$stacktrace";
+  String toString() => 'Caused by: $cause\nStackTrace:\n$stacktrace';
 }

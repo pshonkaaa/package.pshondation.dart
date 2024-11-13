@@ -2,6 +2,9 @@ library library;
 
 
 
+export 'src/external/bases/base_range.dart';
+
+export 'src/external/common/base/disposable.dart';
 export 'src/external/common/base/module.dart';
 export 'src/external/common/base/stateable.dart';
 
@@ -35,6 +38,7 @@ export 'src/external/extensions/DirectoryExtension.dart' if (dart.library.js) ''
 export 'src/external/extensions/IterableExtension.dart';
 export 'src/external/extensions/IterableListExtension.dart';
 export 'src/external/extensions/ListExtension.dart';
+export 'src/external/extensions/map.dart';
 export 'src/external/extensions/StreamExtension.dart';
 
 export 'src/external/deprecated/Logger/EAnsiColor.dart';
@@ -50,6 +54,7 @@ export 'src/external/features/notifier/external/typedef.dart';
 export 'src/external/features/buffer_pointer.dart';
 export 'src/external/features/byte_builder.dart';
 export 'src/external/features/default_app_log_printer.dart';
+export 'src/external/features/disposable_storage.dart';
 
 export 'src/external/features/app_launcher/app_launcher.dart';
 export 'src/external/features/profiler/profiler.dart';

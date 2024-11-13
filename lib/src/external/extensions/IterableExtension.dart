@@ -17,6 +17,17 @@ extension IterableExtension<E> on Iterable<E> {
     return result;
   }
 
+  E get(int index) {
+    Iterator<E> it = iterator;
+    for(int i = 0; i <= index; i++) {
+      if (!it.moveNext()) {
+        throw StateError("No element");
+      }
+    }
+    
+    return it.current;
+  }
+
   bool containsList(Iterable<E> iterable, [bool wholeList = false]) {
     if(!wholeList) {
       final it = iterable.iterator;
@@ -93,4 +104,11 @@ extension IterableExtension<E> on Iterable<E> {
   E? trySingleWhere(bool Function(E e) test) {
     try { return singleWhere(test); } on StateError { return null; }
   }
+}
+
+
+
+extension IterableOfMapEntriesExtension<K, V> on Iterable<MapEntry<K, V>> {
+  Map<K, V> toMap()
+    => Map.fromEntries(this);
 }
