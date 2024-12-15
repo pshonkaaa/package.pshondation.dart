@@ -45,6 +45,7 @@ abstract class RangeCacheLoader implements Disposable {
   ///   при котором будет инициирована предзагрузка.
   /// - [loadCallback] — асинхронная функция для загрузки данных в указанный диапазон.
   /// - [removeCallback] — асинхронная функция для удаления данных из указанного диапазона.
+  /// // TODO обновить описание
   factory RangeCacheLoader({
     required ValueGetter<Range> availableRangeRef,
     required int batchSize,

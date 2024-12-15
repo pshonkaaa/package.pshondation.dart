@@ -23,14 +23,16 @@ class RangeCacheLoaderImpl extends BaseDisposable implements RangeCacheLoader {
   final int preloadThreshold;
 
   final Future<void> Function(Range range) loadCallback;
-  
-  final Future<void> Function(Range range) removeCallback;
 
+  final Future<void> Function(Range range) removeCallback;
+  
   final void Function(List<Range> ranges) onRenderRangeUpdated;
 
   List<Range> get debugCachedRanges => UnmodifiableListView(_cachedRanges);
 
   Range? _currentVisibleRange;
+  Range? _currentRenderedRange;
+
   final List<Range> _cachedRanges = [];
   final List<Range> _usageOrder = []; // Для отслеживания порядка использования
 
@@ -45,72 +47,69 @@ class RangeCacheLoaderImpl extends BaseDisposable implements RangeCacheLoader {
 
     _currentVisibleRange = visibleRange;
 
-    final renderRange = Range(
-      visibleRange.start - preloadThreshold,
-      visibleRange.end + preloadThreshold,
-    ).clamp(_availableRange);
-
     final batchRange = Range(
       visibleRange.start - batchSize,
       visibleRange.end + batchSize,
     ).clamp(_availableRange);
 
-    await _manageCache(renderRange, batchRange);
+    await _manageCache(batchRange);
 
     if (disposed) {
       return;
     }
 
-    // Обновляем видимые диапазоны
-    _updateRenderRanges(renderRange);
+    _updateRenderRanges(batchRange);
   }
 
   Future<void> _manageCache(
-    Range renderRange,
     Range batchRange,
   ) async {
-    // TODO реализовать batchRange
-
     // Определяем диапазоны, которые нужно загрузить
-    final rangesToLoad = _calculateMissingRanges(renderRange, _cachedRanges);
-
+    final rangesToLoad = _calculateMissingRanges(batchRange, _cachedRanges);
     final sizeToLoad = _calculateRangesSize(rangesToLoad);
 
-    // Удаляем и/или обрезаем лишние диапазоны, если превышен максимальный размер кеша
+    // Удаляем лишние диапазоны, если превышен максимальный размер кеша
     while (size + sizeToLoad > maxCacheSize) {
-      final int sizeToDelete = sizeToLoad + size - maxCacheSize;
-      
-      Range? oldestRange = _usageOrder.tryFirst;
+      final sizeToDelete = sizeToLoad + size - maxCacheSize;
+      final Range? oldestRange = _usageOrder.tryFirst;
+
       if (oldestRange != null) {
-        if (sizeToDelete > oldestRange.length) {
+        if (sizeToDelete >= oldestRange.length) {
           _usageOrder.remove(oldestRange);
           _cachedRanges.remove(oldestRange);
           size -= oldestRange.length;
 
+          await removeCallback(oldestRange);
         } else {
-          final newRange = Range(oldestRange.start + sizeToDelete, oldestRange.end);
-          _usageOrder[0] = newRange;
+          final trimmedRange = Range(
+            oldestRange.start + sizeToDelete,
+            oldestRange.end,
+          );
+
           _cachedRanges.remove(oldestRange);
-          _cachedRanges.add(newRange);
+          _cachedRanges.add(trimmedRange);
+          _usageOrder[0] = trimmedRange;
           size -= sizeToDelete;
 
-          oldestRange = Range(oldestRange.start, newRange.start);
+          await removeCallback(
+            Range(oldestRange.start, trimmedRange.start),
+          );
         }
-        
-        await removeCallback(oldestRange);
 
         if (disposed) {
           return;
         }
+
+      } else {
+        // TODO сделать что-то при большом Range
+        break;
       }
 
-      // TODO сделать что-то при большом Range
-      break;
     }
 
     for (final range in rangesToLoad) {
       _cachedRanges.add(range);
-      _usageOrder.add(range); // Добавляем в порядок использования
+      _usageOrder.add(range);
       size += range.length;
 
       await loadCallback(range);
@@ -121,15 +120,34 @@ class RangeCacheLoaderImpl extends BaseDisposable implements RangeCacheLoader {
     }
   }
 
-  void _updateRenderRanges(Range renderRange) {
-    // Находим пересечение между текущим видимым диапазоном и кешем
+  void _updateRenderRanges(Range batchRange) {
+    final currentVisibleRange = _currentVisibleRange!;
+    final currentRenderedRange = _currentRenderedRange;
+
+    // final renderRange = Range(
+    //   currentVisibleRange.start - preloadThreshold,
+    //   currentVisibleRange.end + preloadThreshold,
+    // ).clamp(_availableRange);
+
+    if (currentRenderedRange != null) {
+      final preloadRange = Range(
+        currentVisibleRange.start - preloadThreshold,
+        currentVisibleRange.end + preloadThreshold,
+      ).clamp(_availableRange);
+      
+      if (currentRenderedRange.contains(preloadRange)) {
+        return;
+      }
+    }
+
     final overlappingRanges = _cachedRanges
-        .where((range) => range.overlapsWith(renderRange))
-        .map((range) => range.clamp(renderRange))
+        .where((range) => range.overlapsWith(batchRange))
+        .map((range) => range.clamp(batchRange))
         .toList();
 
-    // Объединяем пересекающиеся или примыкающие диапазоны
     final mergedRanges = _mergeRanges(overlappingRanges);
+
+    _currentRenderedRange = batchRange;
 
     onRenderRangeUpdated(mergedRanges);
   }
@@ -137,45 +155,43 @@ class RangeCacheLoaderImpl extends BaseDisposable implements RangeCacheLoader {
   @override
   void dispose() {
     super.dispose();
-    
     _cachedRanges.clear();
     _usageOrder.clear();
   }
-
-  /// Вычисляет общий размер кеша, суммируя длины всех диапазонов.
-  static int _calculateRangesSize(List<Range> ranges) {
-    return ranges.fold(0, (sum, range) => sum + range.length);
-  }
 }
 
+int _calculateRangesSize(List<Range> ranges) {
+  return ranges.fold(0, (sum, range) => sum + range.length);
+}
 
-
-/// Вычисляет, какие диапазоны отсутствуют в кеше.
-List<Range> _calculateMissingRanges(Range range, List<Range> otherRanges) {
+List<Range> _calculateMissingRanges(Range targetRange, List<Range> cachedRanges) {
   final List<Range> missingRanges = [];
-  int start = range.start;
+  int currentStart = targetRange.start;
 
-  for (final range in otherRanges) {
-    if (range.overlapsWith(range)) {
-      if (range.start > start) {
-        missingRanges.add(Range(start, range.start - 1));
-      }
-      start = range.end;
+  for (final cachedRange in cachedRanges..sort((a, b) => a.start.compareTo(b.start))) {
+    if (cachedRange.end < currentStart) {
+      continue; // Диапазон позади текущего
+    } else if (cachedRange.start > currentStart) {
+      missingRanges.add(Range(currentStart, cachedRange.start));
     }
+
+    if (cachedRange.end >= targetRange.end) {
+      return missingRanges; // Все диапазоны покрыты
+    }
+
+    currentStart = cachedRange.end;
   }
 
-  if (start <= range.end) {
-    missingRanges.add(Range(start, range.end));
+  if (currentStart <= targetRange.end) {
+    missingRanges.add(Range(currentStart, targetRange.end));
   }
 
   return missingRanges;
 }
 
-/// Объединяет пересекающиеся или примыкающие диапазоны в список непрерывных диапазонов.
 List<Range> _mergeRanges(List<Range> ranges) {
   if (ranges.isEmpty) return [];
 
-  // Сортируем диапазоны по началу
   ranges.sort((a, b) => a.start.compareTo(b.start));
 
   final mergedRanges = <Range>[];
@@ -184,18 +200,15 @@ List<Range> _mergeRanges(List<Range> ranges) {
   for (var i = 1; i < ranges.length; i++) {
     final nextRange = ranges[i];
 
-    // Пытаемся объединить текущий диапазон с следующим
     final merged = currentRange.tryMerge(nextRange);
     if (merged != null) {
-      currentRange = merged; // Объединили, продолжаем
+      currentRange = merged;
     } else {
-      mergedRanges.add(currentRange); // Завершаем текущий диапазон
-      currentRange = nextRange; // Переходим к следующему
+      mergedRanges.add(currentRange);
+      currentRange = nextRange;
     }
   }
 
-  // Добавляем последний диапазон
   mergedRanges.add(currentRange);
-
   return mergedRanges;
 }
